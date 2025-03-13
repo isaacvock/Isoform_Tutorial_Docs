@@ -1,0 +1,29 @@
+---
+title: "Isoform_Tutorial_Docs"
+---
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+```{r}
+1 + 1
+```
+
+
+```{bash}
+#| eval: false
+#| echo: true
+
+ls -la
+cd my-project
+```
+
+```{yaml}
+sample:
+  WT_1: fastq/data/WT.fastq
+  WT_2: fastq/data/WT2.fastq
+
+directory: "data/sample"
+
+```
