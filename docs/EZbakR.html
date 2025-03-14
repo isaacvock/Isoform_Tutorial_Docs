@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="isoform-level-analyses">Isoform-level analyses</h2>
 <section id="quickstart" class="level3">
 <h3 class="anchored" data-anchor-id="quickstart">Quickstart</h3>
-<p>Here is the code that I will walk through more thoroughly in the next subsection:</p>
+<p>Here is the code that I will walk through more thoroughly in the following subsections:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">##### Load dependencies #####</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -257,58 +257,170 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                            <span class="at">files =</span> file_names,</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                            <span class="at">quant_tool =</span> <span class="st">"rsem"</span>)</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="do">##### Estimate, average, and compare degradation rate constants #####</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateIsoformFractions</span>(ezbdo)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateIsoformFractions</span>(ezbdo)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="do">##### Estimate, average, and compare degradation rate constants #####</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateKinetics</span>(ezbdo, <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">AverageAndRegularize</span>(ezbdo, <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                              <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">CompareParameters</span>(ezbdo,</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>                           <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>                           <span class="at">design_factor =</span> <span class="st">"treatment"</span>,</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>                           <span class="at">reference =</span> <span class="st">"DMSO"</span>,</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>                           <span class="at">experimental =</span> <span class="st">"SMG1i"</span>,</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>                           <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateKinetics</span>(ezbdo, <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">AverageAndRegularize</span>(ezbdo, <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>                              <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">CompareParameters</span>(ezbdo,</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>                           <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>                           <span class="at">design_factor =</span> <span class="st">"treatment"</span>,</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>                           <span class="at">reference =</span> <span class="st">"DMSO"</span>,</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>                           <span class="at">experimental =</span> <span class="st">"SMG1i"</span>,</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>                           <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="do">##### Assess results #####</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">EZVolcanoPlot</span>(ezbdo)</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="do">##### Assess results #####</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">EZVolcanoPlot</span>(ezbdo)</span>
 <span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">EZget</span>(ezbdo,</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"comparisons"</span>)</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">EZget</span>(ezbdo,</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"comparisons"</span>)</span>
 <span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>comparison <span class="sc">%&gt;%</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(XF <span class="sc">==</span> <span class="st">"SRSF3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>comparison <span class="sc">%&gt;%</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(XF <span class="sc">==</span> <span class="st">"SRSF3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-1-create-ezbakrdata-object" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-create-ezbakrdata-object">Step 1: Create EZbakRData object</h3>
+<p>The first step of any EZbakR analysis is to create an EZbakRData object, which consists of two components: a cB data frame and a metadf data frame. See the <a href="https://isaacvock.github.io/EZbakR/articles/Quickstart.html#step-0-create-an-ezbakrdata-object">EZbakR docs</a> for more details. There isn’t anything too unique in this case, except I am using some cute tricks to automatically populate the necessary metadf fields, and using data.table to load the cB due to its ultra-fast all purpose file reading function, <code>fread()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">##### Load dependencies #####</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EZbakR)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">##### Create EZbakRData object #####</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>cB <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"path/to/cB/cB.csv.gz"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>metadf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample =</span> <span class="fu">unique</span>(cB<span class="sc">$</span>sample)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">tl =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"nos4U"</span>, sample),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"^DMSO"</span>, sample),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMSO"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"SMG1i"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EZbakRData</span>(cB, metadf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="step-2-estimate-tec-fraction-news" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-estimate-tec-fraction-news">Step 2: Estimate TEC fraction news</h3>
+<p>The first unique step of an isoform-level analysis is to estimate the fraction of reads in each transcript equivalence class (TEC) that are new. I’ll show the code first and then explain it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateFractions</span>(ezbdo,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"XF"</span>, <span class="st">"TEC"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">filter_condition =</span> <span class="st">`</span><span class="at">|</span><span class="st">`</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pold_from_nolabel =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The details are:</p>
+<ol type="1">
+<li><code>features</code> is set to “XF” (exonic-regions of genes) and “TEC” (transcript equivalence class). The first is technically not necessary, but is included because it is very convenient to associate isoforms with their gene of origin. The second is the key feature in this case.</li>
+<li><code>filter_condition</code> is set to <code>|</code>, which means that if either the XF column or the TEC column is “__no_feature” or <code>NA</code>, that row will get filtered out. The default is that both have to meet this criterion (<code>&amp;</code>).</li>
+<li><code>pold_from_nolabel</code> is a nice way to improve the stability of new and old read mutation rate estimates by using provided -s<sup>4</sup>U data to estimate the old read mutation rate (pold). It is not strictly necessary but can be useful when mutation rates are low or label times are short.</li>
+</ol>
 </section>
 <section id="step-3-estimate-isoform-fraction-news" class="level3">
 <h3 class="anchored" data-anchor-id="step-3-estimate-isoform-fraction-news">Step 3: Estimate isoform fraction news</h3>
+<p>Next is the real special part. EZbakR will combine information about transcript isoform abundances with the TEC fraction new estimates from last step to estimate isoform fraction news. Again, I’ll show the code (with pseudo file paths that you will have to edit) first:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Load isoform quantification information</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>file_names <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"path/to/rsem/"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pattern =</span> <span class="st">"isoform"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(file_names) <span class="ot">&lt;-</span> metadf<span class="sc">$</span>sample</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">ImportIsoformQuant</span>(ezbdo,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">files =</span> file_names,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">quant_tool =</span> <span class="st">"rsem"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">### Deconvolve isoform fraction news</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateIsoformFractions</span>(ezbdo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are really two parts to this:</p>
+<ol type="1">
+<li>Import isoform quantification estimates</li>
+<li>Estimate isoform fraction news</li>
+</ol>
+<p>The first part requires you to provide a named vector of paths to all the RSEM isoform quantification files, with each file path named the metadf sample to which it comes from. I am using <code>list.file()</code> for this task, looking for all files in the <code>rsem</code> directory generated by fastq2EZbakR that have “isoform” in their name, which denotes the isoform abundance estimates from RSEM. EZbakR’s <code>ImportIsoformQuant()</code> function then imports this data and adds it to your EZbakRData object.</p>
+<p>The second part can typically be run with default options. You may consider changing the <code>TPM_min</code> and <code>count_min</code> (1 and 10 by default) settings, which decides the TPM and expected read count cutoff for isoforms considered “expressed”. Isoforms below these cutoffs get filtered out and will not have their fraction new estimated.</p>
 </section>
 <section id="step-4-6-estimate-average-and-compare-rate-constants" class="level3">
 <h3 class="anchored" data-anchor-id="step-4-6-estimate-average-and-compare-rate-constants">Step 4-6: Estimate, average, and compare rate constants</h3>
+<p>From here on out, it’s a standard EZbakR analysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateKinetics</span>(ezbdo, <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">AverageAndRegularize</span>(ezbdo, <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">CompareParameters</span>(ezbdo,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">features =</span> <span class="st">"transcript_id"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                           <span class="at">design_factor =</span> <span class="st">"treatment"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                           <span class="at">reference =</span> <span class="st">"DMSO"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                           <span class="at">experimental =</span> <span class="st">"SMG1i"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                           <span class="at">exactMatch =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You now have two different <code>fractions</code> tables in your EZbakRData object, so in the first step (<code>EstimateKinetics()</code>) you need to specify that you want the table with the feature column “transcript_id”. Setting <code>exactMatch</code> to <code>FALSE</code> prevents you from having to specify all of the features in this table (XF being the other one). I have included <code>features = "transcript_id"</code> for completeness, but it is technically overkill at this point as there is only one table of each relevant kind at each step if you have done everything as shown in this tutorial so far.</p>
+<p>You can explore the output and see the stabilization of the PTC-containing SRSF3 isoform (but not the major isoform) like so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">EZVolcanoPlot</span>(ezbdo)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">EZget</span>(ezbdo,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"comparisons"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>comparison <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(XF <span class="sc">==</span> <span class="st">"SRSF3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="alternative-feature-analyses" class="level2">
 <h2 class="anchored" data-anchor-id="alternative-feature-analyses">Alternative feature analyses</h2>
 <section id="why" class="level3">
 <h3 class="anchored" data-anchor-id="why">Why?</h3>
+<p>Isoform-level analyses are powerful strategies by which to assess the kinetics for the actual RNA species that are synthesized and degraded. That being said, for these analyses to be accurate, your annotation of expressed isoforms must be accurate. This is often difficult in practice, with troublesome, poorly annotated loci an inevitability. It can thus be nice to have ways to orthogonally validate what you are seeing by the transcript isoform level analysis.</p>
+<p>Enter alternative feature sets. In the fastq2EZbakR analysis, I included exon bin and exon-exon junction feature assignments, as these are both powerful options for this task. Exon-exon junction analyses can identify specific spliciing events that are correlated with a change in RNA stability, regardless of whether the full isoform splice graphs are accurate, and exon bin analyses can identify exonic regions that show strong stabilization signal. Both can be used in this case to corroborate the SRSF3 stabilization event.</p>
 </section>
 <section id="how" class="level3">
 <h3 class="anchored" data-anchor-id="how">How?</h3>
+<p>Reads will often map to several exon bins and/or exon-exon junctions. Thus, dealing with these requires some slight alterations to <code>EstimateFractions</code>.</p>
+<p>Exon-bin anaysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateFractions</span>(ezbdo,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"XF"</span>, <span class="st">"exon_bin"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">filter_condition =</span> <span class="st">`</span><span class="at">|</span><span class="st">`</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">split_multi_features =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">multi_feature_cols =</span> <span class="fu">c</span>(<span class="st">"exon_bin"</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pold_from_nolabel =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Of note are the <code>split_multi_features</code> and <code>multi_feature_cols</code> options. This will copy the data for reads mapping to multiple instances of a given feature (e.g., multiple exon bins) so that fraction news are estimated for each instance of a given feature. The junction-level analysis is similar, except that there are two junction-related features:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ezbdo <span class="ot">&lt;-</span> <span class="fu">EstimateFractions</span>(ezbdo,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"XF"</span>, <span class="st">"junction_start"</span>, <span class="st">"junction_end"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">filter_condition =</span> <span class="st">`</span><span class="at">|</span><span class="st">`</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">split_multi_features =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">multi_feature_cols =</span> <span class="fu">c</span>(<span class="st">"junction_start"</span>, <span class="st">"junction_end"</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">pold_from_nolabel =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The rest of the analysis pipeline is identical, just make sure to specify the feature set to use at each step.</p>
 
 
 </section>
