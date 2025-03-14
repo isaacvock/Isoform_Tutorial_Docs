@@ -20,6 +20,25 @@ This tutorial will also show you how to perform and make use of alternative feat
 
 ## Isoform-level analyses
 
+Make sure you have EZbakR installed, then load the following packages to follow all of the steps in this part of the tutorial:
+
+```{r}
+#| eval: true
+#| echo: true
+
+library(data.table)
+library(dplyr)
+library(EZbakR)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+
+library(readr)
+```
+
+
 ### Quickstart
 
 Here is the code that I will walk through more thoroughly in the following subsections:
@@ -28,12 +47,6 @@ Here is the code that I will walk through more thoroughly in the following subse
 #| eval: false
 #| echo: true
 
-
-##### Load dependencies #####
-
-library(data.table)
-library(dplyr)
-library(EZbakR)
 
 ##### Create EZbakRData object #####
 
@@ -244,8 +257,6 @@ comparison %>%
 #| eval: true
 #| echo: false
 
-library(readr)
-library(dplyr)
 comparison <- read_csv("https://raw.githubusercontent.com/isaacvock/Isoform_Analysis_Tutorial/refs/heads/main/cheatsheet/EZbakRFits/Isoform_comparison.csv")
 comparison %>%
   filter(XF == "SRSF3")
