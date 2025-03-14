@@ -201,6 +201,9 @@ The second part can typically be run with default options. You may consider chan
 From here on out, it's a standard EZbakR analysis:
 
 ```{r}
+#| eval: false
+#| echo: true
+
 ezbdo <- EstimateKinetics(ezbdo, features = "transcript_id",
                           exactMatch = FALSE)
 
@@ -221,6 +224,9 @@ You now have two different `fractions` tables in your EZbakRData object, so in t
 You can explore the output and see the stabilization of the PTC-containing SRSF3 isoform (but not the major isoform) like so:
 
 ```{r}
+#| eval: false
+#| echo: true
+
 EZVolcanoPlot(ezbdo)
 
 
@@ -247,6 +253,8 @@ Reads will often map to several exon bins and/or exon-exon junctions. Thus, deal
 Exon-bin anaysis:
 
 ```{r}
+#| eval: false
+#| echo: true
 
 ezbdo <- EstimateFractions(ezbdo,
                            features = c("XF", "exon_bin"),
@@ -260,4 +268,21 @@ ezbdo <- EstimateFractions(ezbdo,
 Of note are the `split_multi_features` and `multi_feature_cols` options. This will
 copy the data for reads mapping to multiple instances of a given feature (e.g.,
 multiple exon bins) so that fraction news are estimated for each instance of a
-given feature.
+given feature. The junction-level analysis is similar, except that there are two
+junction-related features:
+
+```{r}
+#| eval: false
+#| echo: true
+
+ezbdo <- EstimateFractions(ezbdo,
+                           features = c("XF", "junction_start", "junction_end"),
+                           filter_condition = `|`,
+                           split_multi_features = TRUE,
+                           multi_feature_cols = c("junction_start", "junction_end"),
+                           pold_from_nolabel = TRUE)
+
+```
+
+The rest of the analysis pipeline is identical, just make sure to specify the
+feature set to use at each step.
