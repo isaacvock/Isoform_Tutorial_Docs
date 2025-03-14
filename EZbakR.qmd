@@ -245,6 +245,7 @@ comparison %>%
 #| echo: false
 
 library(readr)
+library(dplyr)
 comparison <- read_csv("https://raw.githubusercontent.com/isaacvock/Isoform_Analysis_Tutorial/refs/heads/main/cheatsheet/EZbakRFits/Isoform_comparison.csv")
 comparison %>%
   filter(XF == "SRSF3")
