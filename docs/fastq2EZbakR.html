@@ -157,6 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-1-deploy" id="toc-step-1-deploy" class="nav-link" data-scroll-target="#step-1-deploy">Step 1: Deploy</a></li>
   <li><a href="#step-2-edit-the-config-file" id="toc-step-2-edit-the-config-file" class="nav-link" data-scroll-target="#step-2-edit-the-config-file">Step 2: Edit the config file</a></li>
   <li><a href="#step-3-run-pipeline" id="toc-step-3-run-pipeline" class="nav-link" data-scroll-target="#step-3-run-pipeline">Step 3: Run pipeline</a></li>
+  <li><a href="#step-4-optional-load-tracks" id="toc-step-4-optional-load-tracks" class="nav-link" data-scroll-target="#step-4-optional-load-tracks">Step 4 (Optional): load tracks</a></li>
   </ul></li>
   <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
   </ul>
@@ -192,8 +193,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="running-the-pipeline">Running the pipeline</h2>
 <section id="step-0-setup" class="level3">
 <h3 class="anchored" data-anchor-id="step-0-setup">Step 0: Setup</h3>
-<p>fastq2EZbakR uses <a href="https://docs.conda.io/projects/conda/en/latest/index.html">Conda</a>/<a href="https://mamba.readthedocs.io/en/latest/">Mamba</a> to automatically install all necessary dependencies the first time you run the pipeline. Thus, you should install one of these before running fastq2EZbakR.</p>
-<p>Historically, I have suggested installing Mamba over Conda, as Mamba was often orders of magnitude faster than Conda for fastq2EZbakR dependency installation. Recently though, Conda has added support for using the same underlying solver that Mamba uses (libmamba). Thus, if you already have Conda installed, check out <a href="https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community">this documentation</a> for how to configure the faster solver.</p>
+<p>fastq2EZbakR uses <a href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a>/<a href="https://mamba.readthedocs.io/en/latest/">mamba</a> to automatically install all necessary dependencies the first time you run the pipeline. Thus, you should install one of these before running fastq2EZbakR.</p>
+<p>Historically, I have suggested installing mamba over conda, as Mamba was often orders of magnitude faster than conda for fastq2EZbakR dependency installation. Recently though, conda has added support for using the same underlying solver that mamba uses (libmamba). Thus, if you already have conda installed, check out <a href="https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community">this documentation</a> for how to configure the faster solver.</p>
 <p>Once you have mamba/conda installed, create a conda environment with Snakemake and Snakedeploy installed:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda <span class="at">--name</span> deploy_snakemake <span class="st">'snakemake&lt;8.0.0'</span> snakedeploy</span>
@@ -311,6 +312,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--cores</span> all <span class="at">--use-conda</span> <span class="at">--rerun-triggers</span> mtime <span class="at">--keep-going</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With this downsampled dataset and a 4 core laptop, the full pipeline should take about 20 minutes to run with this strategy. By default, all of the steps in the pipeline will run serially (i.e., one after another). <strong>This is often not the best way to run fastq2EZbakR, or any Snakemake pipeline.</strong> If you are running the pipeline in an HPC environment, there are several ways to get Snakemake to more effectively use all of the resources available to you, and to thus run each step of the pipeline as a separate job, with several jobs able to be queued up in parallel in many cases. See <a href="https://snakemake.readthedocs.io/en/v7.32.3/executing/cluster.html">here</a> and <a href="https://fastq2ezbakr.readthedocs.io/en/latest/slurm/">here</a> for some details. If you are using Snakemake version &gt;= 8.0.0, checkout the executor plug-ins <a href="https://snakemake.github.io/snakemake-plugin-catalog/">here</a>.</p>
+</section>
+<section id="step-4-optional-load-tracks" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-optional-load-tracks">Step 4 (Optional): load tracks</h3>
+<p>Follow the steps <a href="https://pipelinedocs.readthedocs.io/en/latest/tracks/">here</a> to load the colored tracks created by fastq2EZbakR (found in the <code>results/tracks</code> directory). You can then zoom in on a particular locus, like SRSF3 to see the dramatic effect of SMG1 inhibition at particular loci</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/SRSF3_tracks.png" class="img-fluid figure-img"></p>
+<figcaption>SRSF3 tracks</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="next-steps" class="level2">

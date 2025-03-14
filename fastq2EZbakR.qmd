@@ -11,9 +11,9 @@ The first step towards an isoform-level analysis of your NR-seq data is to proce
 
 ### Step 0: Setup 
 
-fastq2EZbakR uses [Conda](https://docs.conda.io/projects/conda/en/latest/index.html)/[Mamba](https://mamba.readthedocs.io/en/latest/) to automatically install all necessary dependencies the first time you run the pipeline. Thus, you should install one of these before running fastq2EZbakR.
+fastq2EZbakR uses [conda](https://docs.conda.io/projects/conda/en/latest/index.html)/[mamba](https://mamba.readthedocs.io/en/latest/) to automatically install all necessary dependencies the first time you run the pipeline. Thus, you should install one of these before running fastq2EZbakR.
 
-Historically, I have suggested installing Mamba over Conda, as Mamba was often orders of magnitude faster than Conda for fastq2EZbakR dependency installation. Recently though, Conda has added support for using the same underlying solver that Mamba uses (libmamba). Thus, if you already have Conda installed, check out [this documentation](https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community) for how to configure the faster solver.
+Historically, I have suggested installing mamba over conda, as Mamba was often orders of magnitude faster than conda for fastq2EZbakR dependency installation. Recently though, conda has added support for using the same underlying solver that mamba uses (libmamba). Thus, if you already have conda installed, check out [this documentation](https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community) for how to configure the faster solver.
 
 Once you have mamba/conda installed, create a conda environment with Snakemake and Snakedeploy installed:
 
@@ -241,6 +241,14 @@ snakemake --cores all --use-conda --rerun-triggers mtime --keep-going
 
 With this downsampled dataset and a 4 core laptop, the full pipeline should take about 20 minutes to run with this strategy. 
 By default, all of the steps in the pipeline will run serially (i.e., one after another). **This is often not the best way to run fastq2EZbakR, or any Snakemake pipeline.** If you are running the pipeline in an HPC environment, there are several ways to get Snakemake to more effectively use all of the resources available to you, and to thus run each step of the pipeline as a separate job, with several jobs able to be queued up in parallel in many cases. See [here](https://snakemake.readthedocs.io/en/v7.32.3/executing/cluster.html) and [here](https://fastq2ezbakr.readthedocs.io/en/latest/slurm/) for some details. If you are using Snakemake version >= 8.0.0, checkout the executor plug-ins [here](https://snakemake.github.io/snakemake-plugin-catalog/).
+
+
+### Step 4 (Optional): load tracks
+
+Follow the steps [here](https://pipelinedocs.readthedocs.io/en/latest/tracks/) to load the colored tracks created by fastq2EZbakR (found in the `results/tracks` directory). You can then zoom in on a particular locus, like SRSF3 to see the dramatic effect of SMG1 inhibition at particular loci
+
+![SRSF3 tracks](figures/SRSF3_tracks.png)
+
 
 ## Next steps
 

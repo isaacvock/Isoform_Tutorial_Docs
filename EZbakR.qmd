@@ -142,6 +142,8 @@ ezbdo <- EZbakRData(cB, metadf)
 
 ```
 
+You will have to specify the actual path to the cB file (replacing `path/to/cB/` with the actual path to that directory created by fastq2EZbakR).
+
 ### Step 2: Estimate TEC fraction news
 
 The first unique step of an isoform-level analysis is to estimate the fraction of reads in each transcript equivalence class (TEC) that are new. I'll show the code first and then explain it:
@@ -237,6 +239,8 @@ comparison <- EZget(ezbdo,
 comparison %>%
   filter(XF == "SRSF3")
 ```
+
+![Isoform Volcano Plot](figures/Isoform_Volcano_Plot.png)
 
 ## Alternative feature analyses
 
