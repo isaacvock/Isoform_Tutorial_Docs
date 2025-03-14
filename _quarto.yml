@@ -1,13 +1,17 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "Isoform Analyses with the EZbakR-suite"
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: Intro
+      - href: fastq2EZbakR.qmd
+        text: fastq2EZbakR
+      - href: EZbakR.qmd
+        text: EZbakR
 
 format:
   html:

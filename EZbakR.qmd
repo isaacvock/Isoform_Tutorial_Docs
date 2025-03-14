@@ -1,0 +1,122 @@
+---
+title: "EZbakR for isoform analyses"
+engine: knitr
+---
+
+## Introduction
+
+This part of the tutorial shows you how to use EZbakR and the output of fastq2EZbakR to perform an isoform-level analysis of NR-seq data. There are steps to this analysis:
+
+1. Create EZbakRData object
+2. Estimate TEC fraction news
+3. Estimate isoform fraction news
+    - Linear mixing model using TEC fraction news + isoform abundance estimates
+4. Convert fraction news to rate constants
+5. Average replicate data
+6. Compare kinetic parameter estimates between SMG1i and DMSO samples
+
+
+This tutorial will also show you how to perform and make use of alternative feature assignment strategies.
+
+## Isoform-level analyses
+
+### Quickstart
+
+Here is the code that I will walk through more thoroughly in the next subsection:
+
+```{r}
+#| eval: false
+#| echo: true
+
+
+##### Load dependencies #####
+
+library(data.table)
+library(dplyr)
+library(EZbakR)
+
+##### Create EZbakRData object #####
+
+cB <- fread("path/to/cB/cB.csv.gz")
+
+metadf <- tibble(
+  sample = unique(cB$sample)
+) %>%
+  dplyr::mutate(
+    tl = ifelse(grepl("nos4U", sample),
+                0, 2),
+    treatment = ifelse(grepl("^DMSO", sample),
+                       "DMSO",
+                       "SMG1i")
+  )
+
+ezbdo <- EZbakRData(cB, metadf)
+
+
+##### Estimate TEC fraction news #####
+
+ezbdo <- EstimateFractions(ezbdo,
+                           pold_from_nolabel = TRUE,
+                           features = c("XF", "TEC"),
+                           filter_condition = `|`)
+
+
+##### Estimate transcript isoform fraction news #####
+
+### Load isoform quantification information
+file_names <- list.files(path = "path/to/rsem/",
+                         pattern = "isoform",
+                         full.names = TRUE)
+names(file_names) <- metadf$sample
+
+### Deconvolve isoform fraction news
+
+ezbdo <- ImportIsoformQuant(ezbdo,
+                            files = file_names,
+                            quant_tool = "rsem")
+
+##### Estimate, average, and compare degradation rate constants #####
+
+ezbdo <- EstimateIsoformFractions(ezbdo)
+
+
+ezbdo <- EstimateKinetics(ezbdo, features = "transcript_id",
+                          exactMatch = FALSE)
+
+ezbdo <- AverageAndRegularize(ezbdo, features = "transcript_id",
+                              exactMatch = FALSE)
+
+ezbdo <- CompareParameters(ezbdo,
+                           features = "transcript_id",
+                           design_factor = "treatment",
+                           reference = "DMSO",
+                           experimental = "SMG1i",
+                           exactMatch = FALSE)
+
+
+##### Assess results #####
+
+EZVolcanoPlot(ezbdo)
+
+
+comparison <- EZget(ezbdo,
+                    type = "comparisons")
+
+
+comparison %>%
+  filter(XF == "SRSF3")
+```
+
+### Step 1: Create EZbakRData object
+
+### Step 2: Estimate TEC fraction news
+
+### Step 3: Estimate isoform fraction news
+
+### Step 4-6: Estimate, average, and compare rate constants
+
+## Alternative feature analyses
+
+### Why?
+
+### How?
