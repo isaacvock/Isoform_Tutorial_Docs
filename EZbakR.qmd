@@ -240,6 +240,16 @@ comparison %>%
   filter(XF == "SRSF3")
 ```
 
+```{r}
+#| eval: true
+#| echo: false
+
+library(readr)
+comparison <- read_csv("https://raw.githubusercontent.com/isaacvock/Isoform_Analysis_Tutorial/refs/heads/main/cheatsheet/EZbakRFits/Isoform_comparison.csv")
+comparison %>%
+  filter(XF == "SRSF3")
+```
+
 ![Isoform Volcano Plot](figures/Isoform_Volcano_Plot.png)
 
 ## Alternative feature analyses
